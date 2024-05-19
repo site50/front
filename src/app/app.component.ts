@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from "@angular/router";
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule } from '@angular/cdk/drag-drop';
-import { HttpClientModule } from "@angular/common/http";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -16,6 +15,6 @@ import { FormsModule } from "@angular/forms";
   styleUrl: './app.component.scss'
 })
 export class AppComponent  {
-  title = 'TASK ADD!!!!';
+  title = 'добавить задачу';
   
 }
