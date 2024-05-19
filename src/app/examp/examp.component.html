@@ -2,184 +2,161 @@
     <div class="grid-container">
         <div class="menu">
             <div class="button-task">
-                <button class="create-button-task" (click)="showModuleAddTask()">Новая задача</button>
+                <button class="create-button-task" (click)="showModuleAddTask()" style="margin-top:23px">Новая
+                    задача</button>
             </div>
             <div class="container-task">
-                <div class='text-mytask' (click)="myTasks()" style="color:#8861bd">
-                    <img src="/assets/email.jpg" class="img">
-                    Мои задачи
-                    <!--сброс тегов и статусов-->
+                <div class='text-mytask' (click)="myTasksAll()" style="color:#8861bd">
                 </div>
-                <div class="status-task" (click)="myTaskImportant()">
-                    <img src="/assets/star.jpg" class="img">
-                    Важные
+                <ul class='text-mytask' style="color:#8861bd">
+                    <li class="myTask">
+                        Мои задачи
+                    </li>
+                </ul>
+                <ul class='text-mytask' style="color:#8861bd">
+                    @for(y of statusTask;track $index){
+                    <li [ngClass]="y.show?'statusTask':'statusTaskChecked'" (click)="myTasks(y)">
+                        {{y.task}}
+                    </li>
+                    }
+                </ul>
+                <div> @for(d of arrNew;track $index){
+                    <h2>{{d.task}}</h2>
+                    }
                 </div>
-                <div class="status-task" (click)="showPerformed()">
-                    <img src="/assets/ready.jpg" class="img">
-                    Выполненные
+                <ul class='text-mytask' style="color:#8861bd">
+
+                    @for(x of statusDelete;track $index){
+                    <li class="statusTaskDelete" [style.color]="x.show?'':'#ab6aff'" (click)="deleteShow(x)">
+                        {{x.task}}
+                    </li>
+
+                    }
+                </ul>
+
+                <ul style="padding-left:17px;">Тэги </ul>
+                <div class="box-teg">
+                    <ul>
+                        @for(i of tegTask;track $index){
+
+                        <li [ngClass]="i.show?'statusTeg':'statusTegChecked'" (click)="myTasks(i)">
+                            {{i.task}}
+                        </li>
+
+                        }
+                    </ul>
+
                 </div>
-                <div class="status-task" (click)="showDeleted()">
-                    <img src="/assets/cart.jpg" class="img">
-                    Удаленные
-                </div>
-                <div>Тэги </div>
             </div>
-            <ul>
-                <li (click)="tegEvent(1)">
-                    @if(prod){
-                    <div style="border: 1px solid coral;
-            width: fit-content;
-            border-radius: 5px;">
-                        Продуктовность
-                    </div>
-                    }
-                    @else{
-                    <div>Продуктовность</div>
-                    }
-                </li>
-                <li (click)="tegEvent(2)">
-                    @if(edic){
-                    <div style="border: 1px solid coral;
-                width: fit-content;
-                border-radius: 5px;">
-                        Образование
-                    </div>
-                    }
-                    @else{
-                    <div>Образование</div>
-                    }
-                </li>
-                <li (click)="tegEvent(3)">
-                    @if(heal){
-                    <div style="border: 1px solid coral;
-                width: fit-content;
-                border-radius: 5px;">
-                        Здоровье
-                    </div>
-                    }
-                    @else{
-                    <div>Здоровье</div>
-                    }
-                </li>
-                <li (click)="tegEvent(4)">
-                    @if(urg){
-                    <div style="border: 1px solid coral;
-                width: fit-content;
-                border-radius: 5px;">
-                        Срочно
-                    </div>
-                    }
-                    @else{
-                    <div>Срочно</div>
-                    }
-                </li>
-            </ul>
         </div>
         <div class="main3">
-            <div class="task-text">Поиск</div>
-            <div class="task-text my-task">Мои задачи</div>
+
+
             @if(showDelete){
-            @for (d of deleteArr;track $index){
-            <div class="container">
-                <div class="item">
-                    <div class="task">
-                        <span>{{d.task}}</span>
-                    </div>
-                    <div class="chosen-teg-delete">
-                        @if(d.edication){
-                        <div class="teg">Образование</div>
-                        }
-                        @if(d.productivity){
-                        <div class="teg" style="color:#ab6aff">Продуктивность</div>
-                        }
-                        @if(d.health){
-                        <div class="teg" style="color:#FF9F43">Здоровье</div>
-                        }
-                        @if(d.urgent){
-                        <div class="teg" style="color:#EA5455">Срочно</div>
-                        }
-                    </div>
-                    <div class="icone-calendar">
-                        <div class="data"> {{d.time}}/{{d.date}}</div>
-                        <div class="cart">
-                            <img src="/assets/cart.jpg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            }
+            <div class="task-text my-task">Удаленные</div>
+            <app-delete></app-delete>
             }
             @else{
             <div class="container">
+                <app-search [(Array)]="array" [(New_arr5)]="new_arr5" [Search]="search"
+                    [New_arr5]="new_arr5"></app-search>
+
+                <div class="task-text my-task">Мои задачи</div>
                 <div cdkDropList (cdkDropListDropped)="dragDrop($event)">
-                    @for (x of array;track $index){
-                    <div class="item">
-                        @if($index<=5){ <label class="main">
-                            <input type="checkbox" (change)="performedCheckTask($event,x)">
-                            <span class="checkbox-container"></span>
-                            </label>
-                            <div class="task">
-                                <span [class.orange]="x.important===true">{{x.task}}</span>
-                            </div>
-                            <div class="chosen-teg">
-                                @if(x.edication){
-                                <div class="teg">Образование</div>
-                                }
-                                @if(x.productivity){
-                                <div class="teg" style="color:#ab6aff">Продуктивность</div>
-                                }
-                                @if(x.health){
-                                <div class="teg" style="color:#FF9F43">Здоровье</div>
-                                }
-                                @if(x.urgent){
-                                <div class="teg" style="color:#EA5455">Срочно</div>
-                                }
-                            </div>
-                            <div class="icone-calendar">
-                                <div class="data"> {{x.time}}/{{x.date}}</div>
-                                <div class="cart" (click)="deleteTask(x)">
-                                    <img src="/assets/cart.jpg">
+                    <ng-container>
+                        @for (x of array ;track x;let index=$index){
+                        @if(index<this.Page){ <!--div class="item" [ngClass]="{'classA':eventClass}" -->
+                            <div class="item" [style.background]="x.delete?'#242C43':''">
+                                <label class="main">
+                                    <input type="checkbox" [checked]="x.performed" (change)="x.performed=!x.performed">
+                                    <span class="checkbox-container" [style.background]="x.delete?'#242C43':''"></span>
+                                </label>
+                                <div class="task">
+                                    <span [class.orange]="x.important===true" (click)="all(x)">
+                                        {{x.id }}|{{x.task }}
+                                    </span>
                                 </div>
-                          
-                                <div cdkDrag>
-                                    <div class="change"><img src="/assets/check.jpg"></div>
+                                <div class="chosen-teg">
+                                    @if(x.edication){
+                                    <div class="teg">Образование</div>
+                                    }
+                                    @if(x.productivity){
+                                    <div class="teg" style="color:#ab6aff">Продуктивность</div>
+                                    }
+                                    @if(x.health){
+                                    <div class="teg" style="color:#FF9F43">Здоровье</div>
+                                    }
+                                    @if(x.urgent){
+                                    <div class="teg" style="color:#EA5455">Срочно</div>
+                                    }
                                 </div>
+                                <div class="icone-calendar">
+                                    <div class="date">
+                                        {{x.time}}/{{x.date}}
+                                    </div>
+                                    <div class="cart" (click)="deleteAskTask(x)">
+                                        <img src="/assets/cart.jpg">
+                                    </div>
+                                    <div cdkDrag>
+                                        <div class="change">
+                                            <img src="/assets/check.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             }
-                    </div> }
+                            }
+                    </ng-container>
                 </div>
 
-              <!--  @if(deleteModul){
-                    <div class="delete-modul">
-                                         <div> Вы уверены ?</div>
-                        <p>Вы не сможете восстановить это</p>
-                        <div class="button-task change-task">
-                            <button class="create-button-task change-button-task" (click)="conferDelete()">Да, удалить</button>
-                            <button
-                                class="create-button-task change-button-task button-delete">Отмена</button>
+                @if(this.array.length>5){
+                <app-page [(page)]="Page"></app-page>
+                }
+                @if(deleteModul){
+                <div class="delete-modul">
+                    <div class="sign-delete">
+                        <div class="circle">
+                            <h1>!</h1>
                         </div>
                     </div>
-                    }-->
-
-
+                    <h3>Вы уверены ?</h3>
+                    <p>Вы не сможете восстановить это</p>
+                    <div class="button-task delete-task">
+                        <button class="create-button-task change-button-task button-delete-modul"
+                            (click)="confermDelete(true)">
+                            Да, удалить
+                        </button>
+                        <button class="create-button-task button-delete-modul remove-button"
+                            (click)="confermDelete(false)">
+                            Отмена
+                        </button>
+                    </div>
+                </div>
+                }
 
                 @if(show_module){
                 <div class="modal-window">
-                    <span style="padding-left: 13px;  padding-right: 70%;">Задача</span>
-                    <span style="text-align: end;cursor: pointer;
-                    padding-right: 13px;" (click)="closeModal()">X</span>
+                    <form [formGroup]="profileForm" class="form" (ngSubmit)="addTask()">
+                        <div class="title-task">
+                            <span style="padding: 3px 12px;">Задача</span>
 
-                    <div class="box-window">
-                        <div class="text-modal-window">
-                            Название задачи
+                            <span style="cursor: pointer;text-align: right;" (click)="closeModal()">X</span>
+
+                            <label class="main checkbox-main">
+                                <img src="/assets/star.jpg" class="img-modal">
+                                <span (click)="important()"></span>
+                                <input type="checkbox" class="checkbox-img" formControlName="important">
+                            </label>
+
                         </div>
-                        <form [formGroup]="profileForm" class="form" (ngSubmit)="addTask()">
-
+                        <div class="box-window">
+                            @if(!profileForm.valid){
+                            <span class="required">заполните задачу</span>
+                            }
                             <input id="first-name" placeholder="Название задачи" class="input-modul" type="text"
                                 formControlName="task" required>
-                            @if(!profileForm.valid){
-                            <span>заполните задачу</span>
-                            }
+
                             <label class="main checkbox-main">
                                 <input type="checkbox" formControlName="important">
                                 <span class="checkbox-container modal-label"> </span>
@@ -187,7 +164,10 @@
                             </label>
                             <div class="block-modal">
                                 <div class="text-modal-window">
-                                    Заполните дату и время окончания
+                                    @if(!profileForm.valid){
+                                    <span class="required"> Заполните дату и время окончания</span>
+                                    }
+
                                     @if(calendarTime){
                                     <input type="time" (change)="changeDate($event)" formControlName="time"
                                         class="calendar-time" />
@@ -211,39 +191,40 @@
                                 </div>
 
                                 <div class="box3">
-                                    <div class="checkbox-box3">
-                                        <div>
-                                            <label class="main checkbox-main checkbox-teg">
-                                                <input type="checkbox" formControlName="productivity">
-                                                <span class="checkbox-container modal-label"> </span>
-                                                <span class="text-checkbox"> Продуктивность</span>
+                                    <div class="group-checkbox">
+                                        <div class="checkbox-box3">
+                                            <div>
+                                                <label class="main checkbox-main checkbox-teg">
+                                                    <input type="checkbox" formControlName="productivity">
+                                                    <span class="checkbox-container modal-label"> </span>
+                                                    <span class="text-checkbox"> Продуктивность</span>
 
-                                            </label>
+                                                </label>
 
+                                            </div>
+                                            <div>
+                                                <label class="main checkbox-main checkbox-teg">
+                                                    <input type="checkbox" formControlName="health">
+                                                    <span class="checkbox-container modal-label"> </span>
+                                                    <span class="text-checkbox"> Здоровье</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div>
-
-                                            <label class="main checkbox-main checkbox-teg">
-                                                <input type="checkbox" formControlName="health">
-                                                <span class="checkbox-container modal-label"> </span>
-                                                <span class="text-checkbox"> Здоровье</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="checkbox-box3">
-                                        <div>
-                                            <label class="main checkbox-main checkbox-teg">
-                                                <input type="checkbox" formControlName="edication">
-                                                <span class="checkbox-container modal-label"> </span>
-                                                <span class="text-checkbox"> Образование</span>
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="main checkbox-main checkbox-teg">
-                                                <input type="checkbox" formControlName="urgent">
-                                                <span class="checkbox-container modal-label"> </span>
-                                                <span class="text-checkbox"> Срочно</span>
-                                            </label>
+                                        <div class="checkbox-box3">
+                                            <div>
+                                                <label class="main checkbox-main checkbox-teg">
+                                                    <input type="checkbox" formControlName="edication">
+                                                    <span class="checkbox-container modal-label"> </span>
+                                                    <span class="text-checkbox"> Образование</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="main checkbox-main checkbox-teg">
+                                                    <input type="checkbox" formControlName="urgent">
+                                                    <span class="checkbox-container modal-label"> </span>
+                                                    <span class="text-checkbox"> Срочно</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
@@ -261,18 +242,18 @@
                                             <div> Добавить</div>
                                             }
                                         </button>
-                                        <button class="create-button-task change-button-task button-delete"
+                                        <button class="create-button-task button-delete"
                                             (click)="deleteTaskModal()">Удалить</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+
+                        </div>
+                    </form>
                 </div>
                 }
             </div>
             }
-
             <div class="footer4">
                 <div class="text-footer"></div>
             </div>
