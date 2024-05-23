@@ -1,8 +1,8 @@
-#Creating a task plan for the future using Angular and saving it to Localstorage. 
-#View tasks saved in localstorage and delete data.
-#Parsing
-#Localstorage
-#Angular
+# Creating a task plan for the future using Angular and saving it to Localstorage. 
+# View tasks saved in localstorage and delete data.
+# Parsing
+# Localstorage
+# Angular
 
 # Front
 
