@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
-import { ReactiveFormsModule, FormBuilder, FormsModule, Validators } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormsModule,Validators } from "@angular/forms";
 import { DeleteComponent } from '../delete/delete.component';
 import { Observable, Subject } from 'rxjs';
 import { PageComponent } from '../page/page.component';
@@ -37,8 +37,6 @@ export class ExampComponent implements OnInit {
     performed: [''],
     date: ['', Validators.required],
     time: ['', Validators.required],
-    //date: [''],
-    // time: [''],
     description: [''],
     productivity: [''],
     edication: [''],
@@ -47,6 +45,7 @@ export class ExampComponent implements OnInit {
     delete: ['']
   })
 
+
   number_token: any = 1;
   array: any = []
   new_arr5: any = []
@@ -54,18 +53,18 @@ export class ExampComponent implements OnInit {
   deleteModul: boolean = false;
   body: any = []
   tegTask = [
-    { task: 'Продуктивность', teg: { productivity: true }, show: true },
-    { task: 'Образование', teg: { edication: true }, show: true },
-    { task: 'Здоровье', teg: { health: true }, show: true },
-    { task: 'Срочно', teg: { urgent: true }, show: true }
+    { task: 'Productivity', teg: { productivity: true }, show: true },
+    { task: 'Edication', teg: { edication: true }, show: true },
+    { task: 'Health', teg: { health: true }, show: true },
+    { task: 'Urgently', teg: { urgent: true }, show: true }
   ];
 
   statusTask = [
-    { task: 'Важные', teg: { important: true }, show: true },
-    { task: 'Выполненные', teg: { performed: true }, show: true },
+    { task: 'Important', teg: { important: true }, show: true },
+    { task: 'Performed', teg: { performed: true }, show: true },
   ]
   statusDelete = [
-    { task: 'Удаленные', teg: { delete: true }, show: true },
+    { task: 'Deleted', teg: { delete: true }, show: true },
   ]
 
   keyOb: any = {}
@@ -82,6 +81,7 @@ export class ExampComponent implements OnInit {
   importantCheckImg: any = true
   changetTask: any = false;
   x: any = 0;
+  invalid: any = false
 
   constructor(private fb: FormBuilder) { }
 
@@ -105,7 +105,7 @@ export class ExampComponent implements OnInit {
         var t13 = localStorage.getItem(key)!
         var token13 = JSON.parse(t13)
         console.log(token13, 'TOKEN13')
-        this.new_arr5.push(token13)    
+        this.new_arr5.push(token13)
         this.array = this.new_arr5
 
       }
@@ -119,6 +119,7 @@ export class ExampComponent implements OnInit {
   }
 
   addTask() {
+
     if (this.changetTask == true) {
       this.number_token = this.profileForm.value.id
       var index = this.array.indexOf(this.x)
@@ -138,8 +139,8 @@ export class ExampComponent implements OnInit {
       this.number_token = v + count
       this.profileForm.value.id = v + count
       this.array.push(this.profileForm.value)
-      // console.log('ELSE', localStorage.length)
     }
+   
     localStorage.setItem(this.number_token, (JSON.stringify(this.profileForm.value)))//add set<
     this.changetTask = false
     this.calendarTime = false;
@@ -197,7 +198,7 @@ export class ExampComponent implements OnInit {
     for (let key of keys3) {
       var t13 = localStorage.getItem(key)!
       var token13 = JSON.parse(t13)
-      this.new_arr5.push(token13) 
+      this.new_arr5.push(token13)
       this.array = this.new_arr5
     }
   }
@@ -218,7 +219,7 @@ export class ExampComponent implements OnInit {
       event.currentIndex
     )
   }
- 
+
 
   showModuleAddTask() {
     this.show_module = true;
@@ -233,7 +234,7 @@ export class ExampComponent implements OnInit {
     console.log(this.show_module)
   }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.showAllTasks();
     this.new_arr5 = this.array;
   }

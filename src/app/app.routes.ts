@@ -4,5 +4,5 @@ import { ExampComponent } from './examp/examp.component';
 
 export const appRoutes: Routes = [
     { path: '*', component: AppComponent },
-    { path:'exam', component: ExampComponent},
+    { path:'task', component: ExampComponent},
   ];

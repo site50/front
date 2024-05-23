@@ -10,16 +10,16 @@
             </div>
             <div class="chosen-teg">
                 @if(r.edication){
-                <div class="teg">Образование</div>
+                <div class="teg">Edication</div>
                 }
                 @if(r.productivity){
-                <div class="teg" style="color:#ab6aff">Продуктивность</div>
+                <div class="teg" style="color:#ab6aff">Productivity</div>
                 }
                 @if(r.health){
-                <div class="teg" style="color:#FF9F43">Здоровье</div>
+                <div class="teg" style="color:#FF9F43">Health</div>
                 }
                 @if(r.urgent){
-                <div class="teg" style="color:#EA5455">Срочно</div>
+                <div class="teg" style="color:#EA5455">Urgently</div>
                 }
             </div>
             <div class="icone-calendar">
@@ -34,4 +34,8 @@
 }
 }
 </ng-container>
-<app-page [(page)]="Page"></app-page>
+
+@if(this.deleteArr.length>5){
+    <app-page [(page)]="Page"></app-page>
+    }
+
