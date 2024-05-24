@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule, FormBuilder, FormsModule,Validators } from "@angular/forms";
 import { DeleteComponent } from '../delete/delete.component';
@@ -12,19 +11,14 @@ import { SearchComponent } from '../search/search.component';
   selector: 'app-root',
   standalone: true,
   providers: [],
-<<<<<<< HEAD
-  imports: [ReactiveFormsModule,FormsModule,DeleteComponent, DragDropModule,PageComponent, CommonModule, SearchComponent],
-=======
   imports: [ ReactiveFormsModule,
     CommonModule,
-    NgbDropdownModule,
     DragDropModule,
     FormsModule,
     DeleteComponent,
     PageComponent,
     SearchComponent
   ],
->>>>>>> b081b3c15e292d25a5fbf1aed7eefe4917177392
   templateUrl: './examp.component.html',
   styleUrl: './examp.component.scss'
 })
