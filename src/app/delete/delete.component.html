@@ -1,12 +1,13 @@
 <div class="container">
-    <app-search [(Array)]="deleteArr" [(New_arr5)]="deleteArrCopy" [Search]="searchDeleted" [New_arr5]="deleteArrCopy">
+     <app-search [(Array)]="deleteArr" [(New_arr5)]="deleteArrCopy" [Search]="searchDeleted" [New_arr5]="deleteArrCopy">
     </app-search>
+    <div class="task-text my-task">Deleted</div>
     <ng-container>
         @for(r of deleteArr;track r;let index=$index)
         {
         @if(index<this.Page){ <div class="item">
             <div class="task">
-                <span>{{r.task}}</span>
+                <span style="padding-left: 42px;">{{r.task}}</span>
             </div>
             <div class="chosen-teg">
                 @if(r.edication){
@@ -36,6 +37,5 @@
 </ng-container>
 
 @if(this.deleteArr.length>5){
-    <app-page [(page)]="Page"></app-page>
-    }
-
+<app-page [(page)]="Page"></app-page>
+}

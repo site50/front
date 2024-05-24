@@ -51,10 +51,7 @@
             </div>
         </div>
         <div class="main3">
-
-
             @if(showDelete){
-            <div class="task-text my-task">Deleted</div>
             <app-delete></app-delete>
             }
             @else{
@@ -91,7 +88,7 @@
                                 }
                             </div>
                             <div class="icone-calendar">
-                               
+
 
                                 <div class="date">
                                     {{x.time}}/{{x.date}}
@@ -166,19 +163,19 @@
                         </label>
                         <div class="block-modal">
                             <div class="text-modal-window">
-                                
+
 
                                 @if(calendarTime){
-                                    @if(profileForm.value.task && !profileForm.value.time){
-                                        <span style="color:#ff3e7c;font-weight: 700;">To fill time:</span>
-                                        }  <input type="time" (change)="changeDate($event)" formControlName="time"
+                                @if(profileForm.value.task && !profileForm.value.time){
+                                <span style="color:#ff3e7c;font-weight: 700;">To fill time:</span>
+                                } <input type="time" (change)="changeDate($event)" formControlName="time"
                                     class="calendar-time" />
                                 }
-                                  <p></p>
-                                  @if(profileForm.value.task && !profileForm.value.date){
-                                    <span style="color:#ff3e7c;font-weight: 700;">To fill date:</span>
-                                    }                                  
-                                  <input type="date" class="input-calendar" value="Дата и время"
+                                <p></p>
+                                @if(profileForm.value.task && !profileForm.value.date){
+                                <span style="color:#ff3e7c;font-weight: 700;">To fill date:</span>
+                                }
+                                <input type="date" class="input-calendar" value="Дата и время"
                                     (change)=" changeDate($event)" formControlName="date" (click)="showTime()"
                                     required />
                             </div>
@@ -245,7 +242,7 @@
                                         @if(!profileForm.valid){
                                         <div style="color:coral"> Add</div>
                                         }
-                                       
+
                                         @if(profileForm.valid){
                                         <div> Add</div>
                                         }

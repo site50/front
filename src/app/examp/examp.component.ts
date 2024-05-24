@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule, FormBuilder, FormsModule,Validators } from "@angular/forms";
 import { DeleteComponent } from '../delete/delete.component';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { PageComponent } from '../page/page.component';
 import { SearchComponent } from '../search/search.component';
 
@@ -12,16 +12,7 @@ import { SearchComponent } from '../search/search.component';
   selector: 'app-root',
   standalone: true,
   providers: [],
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    NgbDropdownModule,
-    DragDropModule,
-    FormsModule,
-    DeleteComponent,
-    PageComponent,
-    SearchComponent
-  ],
+  imports: [ReactiveFormsModule,FormsModule,DeleteComponent, DragDropModule,PageComponent, CommonModule, SearchComponent],
   templateUrl: './examp.component.html',
   styleUrl: './examp.component.scss'
 })
