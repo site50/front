@@ -12,8 +12,7 @@ import { SearchComponent } from '../search/search.component';
   selector: 'app-root',
   standalone: true,
   providers: [],
-  imports: [
-    ReactiveFormsModule,
+  imports: [ ReactiveFormsModule,
     CommonModule,
     NgbDropdownModule,
     DragDropModule,
