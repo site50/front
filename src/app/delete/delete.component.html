@@ -1,0 +1,41 @@
+<div class="container">
+     <app-search [(Array)]="deleteArr" [(New_arr5)]="deleteArrCopy" [Search]="searchDeleted" [New_arr5]="deleteArrCopy">
+    </app-search>
+    <div class="task-text my-task">Deleted</div>
+    <ng-container>
+        @for(r of deleteArr;track r;let index=$index)
+        {
+        @if(index<this.Page){ <div class="item">
+            <div class="task">
+                <span style="padding-left: 42px;">{{r.task}}</span>
+            </div>
+            <div class="chosen-teg">
+                @if(r.edication){
+                <div class="teg">Edication</div>
+                }
+                @if(r.productivity){
+                <div class="teg" style="color:#ab6aff">Productivity</div>
+                }
+                @if(r.health){
+                <div class="teg" style="color:#FF9F43">Health</div>
+                }
+                @if(r.urgent){
+                <div class="teg" style="color:#EA5455">Urgently</div>
+                }
+            </div>
+            <div class="icone-calendar">
+                <div class="data">
+                    {{r.time}}/{{r.date}}
+                </div>
+            </div>
+            <div class="change">
+                <img src="/assets/check.jpg">
+            </div>
+</div>
+}
+}
+</ng-container>
+
+@if(this.deleteArr.length>5){
+<app-page [(page)]="Page"></app-page>
+}
