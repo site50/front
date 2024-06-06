@@ -10,21 +10,21 @@ import { ReactiveFormsModule, FormBuilder, FormsModule, Validators } from "@angu
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit{
-@Input() Array:any[]=[]
-@Input() Search:any=''
-@Input() New_arr5:any[]=[]
+@Input() Array:any=[]
+//@Input() Search:any=''
+Search:any=''
+@Input() New_arr5:any=[]
 
 @Output() ArrayChange=new EventEmitter()
 @Output() New_arr5Change=new EventEmitter()
 
 searchItem(){
- // console.log(this.Array,'AAAA', this.Search)
+  this.ArrayChange.emit(this.Array)
   if(this.Search!==""){
+ // console.log(this.Search,'HHHH')
     let searchV=this.Search.toLocaleLowerCase();
-    this.Array=this.Array.filter((x:any)=>{
-      //console.log(this.array,'ARRR') //70 string
-   
-    this.ArrayChange.emit(this.Array)
+      this.Array=this.Array.filter((x:any)=>{
+       //console.log(searchV,'AAA')
     return x.task.toLocaleLowerCase().match(searchV) 
     })
     
@@ -32,14 +32,10 @@ searchItem(){
     if(this.Search==""){
       this.ArrayChange.emit(this.New_arr5)
    
-  //  this.New_arr5Change.emit(this.New_arr5)
-   
-  //  this.Array=this.New_arr5
-    //console.log(this.New_arr5,'hhhh', this.Array)
     }
 }
 
 ngOnInit(): void {
-  this.searchItem()
+ //this.searchItem()
 }
 }

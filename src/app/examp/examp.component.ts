@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
-import { ReactiveFormsModule, FormBuilder, FormsModule,Validators } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormsModule, Validators } from "@angular/forms";
 import { DeleteComponent } from '../delete/delete.component';
 import { Subject } from 'rxjs';
 import { PageComponent } from '../page/page.component';
 import { SearchComponent } from '../search/search.component';
+import { MytaskComponent } from '../mytask/mytask.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   providers: [],
-  imports: [ ReactiveFormsModule,
+  imports: [ReactiveFormsModule,
     CommonModule,
     DragDropModule,
     FormsModule,
     DeleteComponent,
     PageComponent,
-    SearchComponent
+    SearchComponent,
+    MytaskComponent
   ],
   templateUrl: './examp.component.html',
   styleUrl: './examp.component.scss'
@@ -41,8 +44,6 @@ export class ExampComponent implements OnInit {
     urgent: [''],
     delete: ['']
   })
-
-
   number_token: any = 1;
   array: any = []
   new_arr5: any = []
@@ -79,17 +80,20 @@ export class ExampComponent implements OnInit {
   changetTask: any = false;
   x: any = 0;
   invalid: any = false
+  arr5: any = []
 
   constructor(private fb: FormBuilder) { }
 
-  deleteAskTask(x: any) {
+  deleteAskTask(x: any) { //if delete task
     this.body = x;
     this.body.delete = true;
     this.deleteModul = true;
     this.delItm = x.delete
     this.idDelIt = this.body.id
   }
-  confermDelete(conform: any) {
+
+
+  confermDelete(conform: any) { //conferm delete
     if (conform === true) {
       localStorage.removeItem(this.idDelIt)
       this.storageSub.next('removed')
@@ -101,7 +105,7 @@ export class ExampComponent implements OnInit {
       for (let key of keys3) {
         var t13 = localStorage.getItem(key)!
         var token13 = JSON.parse(t13)
-        console.log(token13, 'TOKEN13')
+     //   console.log(token13, 'TOKEN13')
         this.new_arr5.push(token13)
         this.array = this.new_arr5
 
@@ -109,14 +113,16 @@ export class ExampComponent implements OnInit {
       localStorage.setItem(keyRemove, (JSON.stringify(this.body)))// remove SET LC!!!
     }
     if (conform === false) {
-      this.body.delete = false
+      this.body.delete = false;
+      //this.array = []
+      //this.new_arr5 = []
     }
     this.deleteModul = false
 
   }
 
   addTask() {
-
+//add task and add in LocalStorage
     if (this.changetTask == true) {
       this.number_token = this.profileForm.value.id
       var index = this.array.indexOf(this.x)
@@ -137,46 +143,46 @@ export class ExampComponent implements OnInit {
       this.profileForm.value.id = v + count
       this.array.push(this.profileForm.value)
     }
-   
-    localStorage.setItem(this.number_token, (JSON.stringify(this.profileForm.value)))//add set<
+
+    localStorage.setItem(this.number_token, (JSON.stringify(this.profileForm.value)))//add set in LS
     this.changetTask = false
     this.calendarTime = false;
     this.profileForm.reset()
     this.show_module = false;
-
-    console.log(localStorage.length)
+   // console.log(localStorage.length) 
   }
 
   all(x: any) {
     this.changetTask = true
     this.x = x;
-    //console.log(x)
     this.profileForm.setValue(x)
     this.show_module = true;
   }
 
   important() {
-    this.importantCheckImg = !this.importantCheckImg
+    this.importantCheckImg = !this.importantCheckImg //show important module
   }
 
-  deleteShow(obj: any) {
+  deleteShow(obj: any) { //show delete module
     obj.show = !obj.show;
     this.showDelete = !this.showDelete
   }
 
   myTasks(obj: any) {
-    this.keyOb = Object.keys(obj.teg)
+    this.keyOb = Object.keys(obj.teg)  //filter task wthat depends from obj.show
     obj.show = !obj.show;
-    obj.show && obj.task ?
-      (
-        this.myTasksAll(),
-        this.removeDubl()
+    obj.show ?
+
+      (this.array = this.new_arr5
+        // console.log(this.keyOb, '1---', obj.show)
       )
       :
-      this.array = this.array.filter((x: any) => { return x[this.keyOb] == true; })
+      (this.array = this.array.filter((x: any) => { return x[this.keyOb] === true; })
+        //  console.log(this.keyOb, '2---', obj.show)
+      )
   }
 
-  removeDubl() {
+  removeDubl() { //remove dubles
     const dublAr = this.array.filter((item: any, index: any) => {
       return index === this.array.findIndex((i: any) => item.task === i.task && item.date === i.date && item.time === i.time);
     });
@@ -185,11 +191,11 @@ export class ExampComponent implements OnInit {
   }
 
   myTasksAll() {
-    this.showAllTasks()
+    this.showAllTasks() //show all tasks
     this.removeDubl()
   }
 
-  showAllTasks() {
+  showAllTasks() { //show all tasks
     let keys = Object.keys(localStorage);
     let keys3 = keys.filter(Number)
     for (let key of keys3) {
@@ -205,12 +211,12 @@ export class ExampComponent implements OnInit {
     console.log(e.target.value)
   }
 
-  showTime() {
+  showTime() { //show calendar
     this.calendarTime = true;
   }
 
   dragDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
+    moveItemInArray( //for dragDrop task
       this.array,
       event.previousIndex,
       event.currentIndex
@@ -224,6 +230,7 @@ export class ExampComponent implements OnInit {
 
   deleteTaskModal() {
     this.show_module = false;
+    this.profileForm.reset()
   }
 
   closeModal() {

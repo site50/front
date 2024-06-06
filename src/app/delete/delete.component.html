@@ -1,8 +1,9 @@
 <div class="container">
-     <app-search [(Array)]="deleteArr" [(New_arr5)]="deleteArrCopy" [Search]="searchDeleted" [New_arr5]="deleteArrCopy">
+          <app-search [(Array)]="deleteArr" [(New_arr5)]="deleteArrCopy"  [New_arr5]="deleteArrCopy">
     </app-search>
     <div class="task-text my-task">Deleted</div>
-    <ng-container>
+
+        @if(deleteArr){
         @for(r of deleteArr;track r;let index=$index)
         {
         @if(index<this.Page){ <div class="item">
@@ -11,16 +12,16 @@
             </div>
             <div class="chosen-teg">
                 @if(r.edication){
-                <div class="teg">Edication</div>
+                <mark>Edication</mark>
                 }
                 @if(r.productivity){
-                <div class="teg" style="color:#ab6aff">Productivity</div>
+                <mark style="color:#ab6aff">Productivity</mark>
                 }
                 @if(r.health){
-                <div class="teg" style="color:#FF9F43">Health</div>
+                <mark style="color:#FF9F43">Health</mark>
                 }
                 @if(r.urgent){
-                <div class="teg" style="color:#EA5455">Urgently</div>
+                <mark style="color:#EA5455">Urgently</mark>
                 }
             </div>
             <div class="icone-calendar">
@@ -28,14 +29,17 @@
                     {{r.time}}/{{r.date}}
                 </div>
             </div>
-            <div class="change">
-                <img src="/assets/check.jpg">
-            </div>
-</div>
+         </div>
 }
-}
-</ng-container>
 
-@if(this.deleteArr.length>5){
+}
+@empty{
+    <div class="task-text" style="color:green">no deleted items</div>
+}
+
+}
+
+
+@if(this.deleteArr.length>Page){
 <app-page [(page)]="Page"></app-page>
 }

@@ -12,3 +12,8 @@ export interface Exam{
     time:string;
     date:string;
     }
+    export interface Ex{
+            task:string;
+      health:string;
+      
+      }

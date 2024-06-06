@@ -26,7 +26,7 @@ export class DeleteComponent implements OnInit {
       let arrObj = JSON.parse(jsonObj)
       this.newArrDelete.push(arrObj)
       this.deleteArr = this.newArrDelete
-      console.log(this.deleteArr)
+     // console.log(this.deleteArr)
     }
 
   }
@@ -34,7 +34,7 @@ export class DeleteComponent implements OnInit {
   ngOnInit(): void {
     this.showDeleted()
     this.deleteArrCopy = this.deleteArr
-    console.log(this.deleteArrCopy)
+  //  console.log(this.deleteArrCopy)
   }
 
 }
